@@ -12,6 +12,8 @@ const app = express()
 const socketio = require('socket.io')
 module.exports = app
 
+global.appRoot = __dirname
+
 // This is a global Mocha hook, used for resource cleanup.
 // Otherwise, Mocha v4+ never quits after tests.
 if (process.env.NODE_ENV === 'test') {
@@ -54,7 +56,9 @@ const createApp = () => {
   // session middleware with passport
   app.use(
     session({
-      secret: process.env.SESSION_SECRET || 'my best friend is Cody',
+      secret:
+        process.env.SESSION_SECRET ||
+        "Wouldn't it be nice if we could store images",
       store: sessionStore,
       resave: false,
       saveUninitialized: false
