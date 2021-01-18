@@ -4,7 +4,7 @@ const {Image, User} = require('../db/models')
 router.get('/', async (req, res, next) => {
   try {
     const user = req.user.id
-    let images = await Image.findOne({
+    let images = await Image.findAll({
       where: {
         userId: user
       }
@@ -37,7 +37,7 @@ router.delete('/single/:imageid', async (req, res, next) => {
   try {
     await Image.destroy({
       where: {
-        id: req.params.id,
+        id: req.params.imageid,
         userId: req.user.id
       }
     })
