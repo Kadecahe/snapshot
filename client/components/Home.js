@@ -21,31 +21,6 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
-      <SingleUpload />
-      {/* <Form onSubmit={handleClick} method="post" encType="multipart/form-data">
-        <Form.Group controlId="image">
-          <Form.Label>Upload Your Images</Form.Label>
-          <br />
-          <Form.File
-            id="form-image"
-            name="image"
-            className="m-0 mb-1"
-            onChange={event => {
-              const currentImage = event.target.files[0]
-              setImage(currentImage)
-            }}
-            accept=".jpg"
-          />
-        </Form.Group>
-        <Button
-          variant="primary"
-          type="submit"
-          // onClick={handleClick}
-        >
-          Upload
-        </Button>
-      </Form>
-      <Repository /> */}
     </div>
   )
 }

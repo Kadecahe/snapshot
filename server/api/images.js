@@ -18,12 +18,13 @@ router.get('/', async (req, res, next) => {
 
 router.post('/single', async (req, res, next) => {
   try {
-    const {title, tags, price, imageUpload, userId} = req.body
+    const {title, tags, price, imageUpload, userId, isPrivate} = req.body
     await Image.create({
       title,
       tags,
       price,
       imageUpload,
+      isPrivate,
       userId
     })
     return res.send('File uploaded!')
@@ -32,32 +33,46 @@ router.post('/single', async (req, res, next) => {
   }
 })
 
-// router.post('/images/multiple', upload.array('files', 5), async (req, res, next) => {
-//   try{
-//     const file = global.appRoot + '/uploads/' + req.file.filename;
+router.delete('/single/:imageid', async (req, res, next) => {
+  try {
+    await Image.destroy({
+      where: {
+        id: req.params.id,
+        userId: req.user.id
+      }
+    })
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
 
-//   }catch(err) {
-//     next(err)
-//   }
-// })
+router.delete('/multiple', async (req, res, next) => {
+  try {
+    await Image.destroy({
+      where: {
+        id: req.body.imageids,
+        userId: req.user.id
+      }
+    })
 
-// app.post('/categories', upload.single('file'), (req,res) => {
-//     fs.rename(req.file.path, file, function(err) {
-//         if (err) {
-//             console.log(err);
-//             res.send(500);
-//         }
-//         else {
-//               db.Category.create({
-//                     name: req.body.name,
-//                     description: req.body.description,
-//                     poster : req.file.filename
-//                 })
-//                 .then(r =>  {
-//                 res.send(r.get({plain:true}));
-//                 });
-//         }
-//       });
-// })
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/all', async (req, res, next) => {
+  try {
+    await Image.bulkDelete({
+      where: {
+        userId: req.user.id
+      }
+    })
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
 
 module.exports = router

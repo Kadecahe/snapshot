@@ -34,6 +34,10 @@ const Image = db.define('image', {
     validate: {
       notEmpty: true
     }
+  },
+  isPrivate: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

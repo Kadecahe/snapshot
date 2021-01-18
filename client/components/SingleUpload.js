@@ -3,6 +3,7 @@ import {uploadSingleImage} from '../store/image'
 import {connect} from 'react-redux'
 import {Form, Button} from 'react-bootstrap'
 import axios from 'axios'
+import {Private} from './index'
 
 class SingleUpload extends React.Component {
   constructor(props) {
@@ -12,11 +13,13 @@ class SingleUpload extends React.Component {
       tags: '',
       price: 1,
       imageUpload: '',
-      isActive: false
+      isActive: false,
+      isPrivate: false
     }
     this.uploadImage = this.uploadImage.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.makePrivate = this.makePrivate.bind(this)
   }
   componentDidMount() {
     console.log('SingleUpload')
@@ -42,9 +45,15 @@ class SingleUpload extends React.Component {
       tags: tagArr,
       price: this.state.price,
       imageUpload: this.state.imageUpload,
+      isPrivate: this.state.isPrivate,
       userId: this.props.user.id
     }
     this.props.upload(newImage)
+  }
+
+  makePrivate() {
+    let bool = this.state.isPrivate
+    this.setState({isPrivate: !bool})
   }
 
   render() {
@@ -91,6 +100,9 @@ class SingleUpload extends React.Component {
               accept=".png, .jpg, .jpeg"
             />
           </Form.Group>
+          <br />
+          <Private makePrivate={this.makePrivate} bool={this.state.isPrivate} />
+          <br />
           <div>
             {this.state.isActive ? (
               <Button

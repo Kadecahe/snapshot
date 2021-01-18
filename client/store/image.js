@@ -17,18 +17,7 @@ export const fetchImages = () => async dispatch => {
   }
 }
 
-export const uploadSingleImage = image => async dispatch => {
-  try {
-    console.log('in thunk')
-    let res = await axios.post('api/multer/single', image)
-    console.log(res)
-    dispatch({type: 'done'})
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-export const uploadToDatabase = imageObj => async dispatch => {
+export const uploadSingleImage = imageObj => async dispatch => {
   try {
     let res = await axios.post('api/images/single', imageObj)
     dispatch({type: 'done'})

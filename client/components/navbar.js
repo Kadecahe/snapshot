@@ -5,16 +5,23 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {Navbar as Bootstrapnavbar, Nav} from 'react-bootstrap'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <Bootstrapnavbar variant="dark" bg="light">
+const Navbar = ({handleClick, isLoggedIn, user}) => (
+  <Bootstrapnavbar
+    variant="dark"
+    bg="light"
+    className="d-flex justify-content-between"
+    id="nav"
+  >
     <Bootstrapnavbar.Brand id="logo">
-      <img src="snapshot.png" id="logo" />
+      <Link to="/home" className="m-0">
+        <img src="snapshot.png" id="logo" />
+      </Link>
     </Bootstrapnavbar.Brand>
 
     {isLoggedIn ? (
       <Nav>
         {/* The navbar will show these links after you log in */}
-        <Link to="/home">Home</Link>
+        <Link to="/upload">Upload</Link>
         <a href="#" onClick={handleClick}>
           Logout
         </a>
@@ -34,7 +41,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
