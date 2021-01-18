@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Form, Button} from 'react-bootstrap'
 import {uploadSingleImage} from '../store/image'
-import {Repository} from './index'
+import {Repository, SingleUpload} from './index'
 /**
  * COMPONENT
  */
@@ -21,7 +21,8 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
-      <Form onSubmit={handleClick} method="post" encType="multipart/form-data">
+      <SingleUpload />
+      {/* <Form onSubmit={handleClick} method="post" encType="multipart/form-data">
         <Form.Group controlId="image">
           <Form.Label>Upload Your Images</Form.Label>
           <br />
@@ -44,7 +45,7 @@ export const UserHome = props => {
           Upload
         </Button>
       </Form>
-      <Repository />
+      <Repository /> */}
     </div>
   )
 }

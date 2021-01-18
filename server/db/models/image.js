@@ -2,7 +2,7 @@ const db = require('../db')
 const Sequelize = require('sequelize')
 
 const Image = db.define('image', {
-  name: {
+  title: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
@@ -22,9 +22,14 @@ const Image = db.define('image', {
     type: Sequelize.INTEGER,
     defaultValue: 1
   },
+  //Would be used as a percentage off total
+  discount: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
   //will use with Multer to store the images to the public folder
   imageUpload: {
-    type: Sequelize.BLOB('long'),
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true
